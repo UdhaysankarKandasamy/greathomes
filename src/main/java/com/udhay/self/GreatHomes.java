@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 @SpringBootApplication
 @RestController
 public class GreatHomes {
@@ -28,7 +30,9 @@ public class GreatHomes {
 	
 	@PostMapping("/webhooks")
 	public HttpStatus eventNotification(@RequestBody Request request) {
-		System.out.println("Request.. {}"+request);
+		Gson gson = new Gson();
+		
+		System.out.println("Request.. {}"+gson.toJson(request));
 		if(null==request)
 			System.out.println("Request object is null and couldn't receive anything... ");
 		System.out.println("Response -> field-> "+request.getField()+ "object "+request.getObject());
