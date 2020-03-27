@@ -31,24 +31,9 @@ public class GreatHomes {
 	@PostMapping("/webhooks")
 	public HttpStatus eventNotification(@RequestBody Request request) {
 		Gson gson = new Gson();
-		
 		System.out.println("Request.. {}"+gson.toJson(request));
 		if(null==request)
-			System.out.println("Request object is null and couldn't receive anything... ");
-		System.out.println("Response -> field-> "+request.getField()+ "object "+request.getObject());
-		
-		if(null!=request.getValue()) {
-			System.out.println(" media "+request.getValue().getMedia_id()+" comment "+request.getValue().getComment_id());
-		}
-		if(null!=request.getEntry()&& !request.getEntry().isEmpty()) {
-			System.out.println("size "+request.getEntry().size());
-			System.out.println("id "+request.getEntry().get(0).getId()+" time "+request.getEntry().get(0).getTime()+" uid "+request.getEntry().get(0).getUid());
-			if(null!=request.getEntry().get(0).getChanges() && !request.getEntry().get(0).getChanges().isEmpty()) {
-				System.out.println("changes "+request.getEntry().get(0).getChanges().get(0).getField());
-			}
-			
-		}
-		
+			System.out.println("Request object is null and couldn't receive anything... ");		
 		return HttpStatus.OK;
 	}
 
