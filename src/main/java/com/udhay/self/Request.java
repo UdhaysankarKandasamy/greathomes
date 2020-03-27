@@ -10,7 +10,7 @@ import lombok.Data;
  *
  */
 
-public class Response {
+public class Request {
 
 	private String field;
 	private Value value;

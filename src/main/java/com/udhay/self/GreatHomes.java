@@ -27,8 +27,10 @@ public class GreatHomes {
 	}
 	
 	@PostMapping("/webhooks")
-	public HttpStatus eventNotification(@RequestBody Response response) {
-		System.out.println("Response -> field-> "+response.getField()+" media "+response.getValue().getMedia_id()+" comment "+response.getValue().getComment_id());
+	public HttpStatus eventNotification(@RequestBody Request request) {
+		if(null==request)
+			System.out.println("Request object is null and couldn't receive anything... ");
+		System.out.println("Response -> field-> "+request.getField()+" media "+request.getValue().getMedia_id()+" comment "+request.getValue().getComment_id());
 		
 		return HttpStatus.OK;
 	}
