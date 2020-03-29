@@ -28,13 +28,13 @@ public class Domain {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	public void startSeriesActions() {
+	public void startSeriesActions(String sku) {
 		System.out.println("--------------------Getting posts-------------------");
 		String postID = getLatestPost();
 		System.out.println("--------------------Getting image URL--------------------");
 		String imageURL = getImageURL(postID);
 		System.out.println("--------------------Getting product SKU from google-------------------");
-		String sku = getSkuFromGVision(imageURL);
+		getSkuFromGVision(imageURL);
 		System.out.println("--------------------Comment in post comment----------------------");
 		postComment(postID, sku);
 		System.out.println("--------------------Action completed-----------------------");
@@ -56,7 +56,7 @@ public class Domain {
 
 	private String getSkuFromGVision(String imageURL) {
 		System.out.println("Image URL ---> " + imageURL);
-		return "1234567";
+		return "sku temp";
 	}
 
 	private void postComment(String postID, String sku) {

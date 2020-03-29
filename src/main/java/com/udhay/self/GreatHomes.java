@@ -44,8 +44,8 @@ public class GreatHomes {
 	}
 
 	@GetMapping("/start")
-	public String startAction() {
-		domain.startSeriesActions();
+	public String startAction(@RequestParam("sku") String sku) {
+		domain.startSeriesActions(sku);
 		return "commented";
 	}
 	
