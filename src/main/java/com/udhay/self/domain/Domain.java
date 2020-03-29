@@ -3,8 +3,6 @@
  */
 package com.udhay.self.domain;
 
-import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,11 +30,11 @@ public class Domain {
 
 	public void startSeriesActions() {
 		System.out.println("--------------------Getting posts-------------------");
-		String postID=getLatestPost();
+		String postID = getLatestPost();
 		System.out.println("--------------------Getting image URL--------------------");
 		String imageURL = getImageURL(postID);
 		System.out.println("--------------------Getting product SKU from google-------------------");
-		String sku= getSkuFromGVision(imageURL);
+		String sku = getSkuFromGVision(imageURL);
 		System.out.println("--------------------Comment in post comment----------------------");
 		postComment(postID, sku);
 		System.out.println("--------------------Action completed-----------------------");
