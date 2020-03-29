@@ -21,7 +21,7 @@ public class Domain {
 	static String accessToken = "EAAC894OT9c8BAAL7CZBvwYsU2MBZCnFSbvTlZBFpEyZASrgF5qIs84V58CdcO7l4efHziyZAznmT7uQZCk6eN5vBJQLdTJnD36xSGZAmyP7Y65WNJg9dZB8GfgqYJHi37hL8VLSzXonS8binAeJmgr8mqZBfBYTbsnlklcTA1t3axIecY8795Ci3z";
 	static String pageAccessToken = "EAAC894OT9c8BAIdgu9YthcmDmS2ZBHZAj2lRCv4ZBmS25VO5Ac0LrLpsxc4oi1AoQtPEgIniNhqBXkwKXZCa0L1ThOWTaWIWNd5m9sY2UhZAMjfVlZCZCbPBPCsetnhj8ZBJlkp4e46Wts86iqdE18MVZCVjvVqn9qnZAjuTFZCLZAzBZBUaJJHpq3HK5SQZCXLJ1ihyIZD";
 	static String pageID = "106853594299095";
-	static String siteURL = "https://greathomesv2.herokuapp.com/site";
+	static String siteURL = "https://www.ikea.com/ca/en/p/kivik-sofa-skiftebo-dark-gray-s89305583/";
 	static String fbBaseUrl = "https://graph.facebook.com/v6.0/";
 
 	Gson gson = new Gson();
@@ -60,8 +60,7 @@ public class Domain {
 	}
 
 	private void postComment(String postID, String sku) {
-		String commentMessage = siteURL + "?sku=" + sku;
-		String commentURL = fbBaseUrl + postID + "/comments?message=" + commentMessage + "&access_token="
+		String commentURL = fbBaseUrl + postID + "/comments?message=" + siteURL + "&access_token="
 				+ pageAccessToken;
 		DataResponse response = restTemplate.postForEntity(commentURL, null, DataResponse.class).getBody();
 		System.out.println("Comment Response ------>  " + gson.toJson(response));
