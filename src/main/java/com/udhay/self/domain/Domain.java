@@ -3,7 +3,10 @@
  */
 package com.udhay.self.domain;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,7 @@ import com.udhay.self.VisionClassificationPredict;
  */
 @Service
 public class Domain {
-	
+
 	@Autowired
 	VisionClassificationPredict predict;
 
@@ -32,30 +35,33 @@ public class Domain {
 	static String fbBaseUrl = "https://graph.facebook.com/v6.0/";
 	String projectId = "uplifted-matrix-272403";
 	String modelId = "ICN1754605053651451904";
-	
+
 	String url20200356 = "https://www.wayfair.ca/furniture/pdp/andover-mills-bjorn-59-rolled-arm-settee-c000165139.html";
 	String url20200398 = "https://www.wayfair.ca/furniture/pdp/greyleigh-riddleville-lift-top-coffee-table-with-storage-gryl5418.html?piid=37356226";
-	
-	String sku="20200356";
-	
+
+	String sku = "20200356";
+
 	Gson gson = new Gson();
 
 	RestTemplate restTemplate = new RestTemplate();
 
 	public void startSeriesActions() {
+		addEnv();
 		System.out.println("--------------------Getting posts-------------------");
 		String postID = getLatestPost();
 		System.out.println("--------------------Getting image URL--------------------");
 		String imageURL = getImageURL(postID);
 		System.out.println("--------------------Getting product SKU from google-------------------");
 		try {
+			System.out.println("Creds -> "+System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
 			sku = getSkuFromGVision(imageURL);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("--------------------Comment in post comment----------------------");
-		postComment(postID, sku);
+		
+//		postComment(postID, sku);
 		System.out.println("--------------------Action completed-----------------------");
 	}
 
@@ -78,16 +84,28 @@ public class Domain {
 	}
 
 	private void postComment(String postID, String sku) {
-		System.out.println("Sku found from google Vision "+sku);
-		String commentMessage=url20200356;
-		if("20200398".equalsIgnoreCase(sku)) {
-			commentMessage=url20200398;
+		System.out.println("Sku found from google Vision " + sku);
+		String commentMessage = url20200356;
+		if ("20200398".equalsIgnoreCase(sku)) {
+			commentMessage = url20200398;
 		}
 		String commentUrl = fbBaseUrl + postID + "/comments?message=" + commentMessage + "&access_token="
 				+ pageAccessToken;
-		System.out.println("comment Message --> "+commentUrl);
+		System.out.println("comment Message --> " + commentUrl);
 		DataResponse response = restTemplate.postForEntity(commentUrl, null, DataResponse.class).getBody();
 		System.out.println("Comment Response ------>  " + gson.toJson(response));
+	}
+
+	static void addEnv() {
+		String path = new File(".").getAbsolutePath();
+		path = path.replace(".", "src\\main\\resources\\credentials.json");
+		System.out.println("Path -> " + path);
+//		Map<String, String> env = System.getenv();
+//		System.getenv().put("GOOGLE_APPLICATION_CREDENTIALS", "C:/Users/udhay/Downloads/googlevision.json");
+	}
+
+	public static void main(String[] args) {
+		addEnv();
 	}
 
 }
