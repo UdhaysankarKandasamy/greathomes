@@ -46,7 +46,6 @@ public class Domain {
 	RestTemplate restTemplate = new RestTemplate();
 
 	public void startSeriesActions() {
-		addEnv();
 		System.out.println("--------------------Getting posts-------------------");
 		String postID = getLatestPost();
 		System.out.println("--------------------Getting image URL--------------------");
@@ -60,8 +59,7 @@ public class Domain {
 			e.printStackTrace();
 		}
 		System.out.println("--------------------Comment in post comment----------------------");
-		
-//		postComment(postID, sku);
+		postComment(postID, sku);
 		System.out.println("--------------------Action completed-----------------------");
 	}
 
@@ -96,16 +94,14 @@ public class Domain {
 		System.out.println("Comment Response ------>  " + gson.toJson(response));
 	}
 
-	static void addEnv() {
-		String path = new File(".").getAbsolutePath();
-		path = path.replace(".", "src\\main\\resources\\credentials.json");
-		System.out.println("Path -> " + path);
-//		Map<String, String> env = System.getenv();
-//		System.getenv().put("GOOGLE_APPLICATION_CREDENTIALS", "C:/Users/udhay/Downloads/googlevision.json");
-	}
-
-	public static void main(String[] args) {
-		addEnv();
-	}
+	/*
+	 * static void addEnv() { String path = new File(".").getAbsolutePath(); path =
+	 * path.replace(".", "src\\main\\resources\\credentials.json");
+	 * System.out.println("Path -> " + path); // Map<String, String> env =
+	 * System.getenv(); // System.getenv().put("GOOGLE_APPLICATION_CREDENTIALS",
+	 * "C:/Users/udhay/Downloads/googlevision.json"); }
+	 * 
+	 * public static void main(String[] args) { addEnv(); }
+	 */
 
 }
